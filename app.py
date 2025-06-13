@@ -63,12 +63,18 @@ st.title("🆘 " + t("Sahaayak - Your Disaster Assistance Chatbot"))
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [SystemMessage(content=initial_instruction)]
 
-# Detect location
+# Improved location detection using ipapi
 def get_location():
     try:
-        res = requests.get("https://ipinfo.io/json")
+        res = requests.get("https://ipapi.co/json")
         data = res.json()
-        return f"{data.get('city','')}, {data.get('region','')}, {data.get('country','')}"
+        city = data.get('city', '')
+        region = data.get('region', '')
+        country = data.get('country_name', '')
+        lat = data.get('latitude', '')
+        lon = data.get('longitude', '')
+        st.session_state.user_latlon = (lat, lon)  # store for future use
+        return f"{city}, {region}, {country}"
     except:
         return t("Location unavailable")
 
@@ -163,9 +169,7 @@ if faq_clicked:
     user_input = faq_clicked
 
 if user_input:
-    # Translate to English if needed
     translated_input = translator.translate(user_input, "en").result if lang_code != "en" else user_input
-
     st.session_state.chat_history.append(HumanMessage(content=translated_input))
     st.markdown(f"<div class='chat-bubble user-bubble'>{user_input}</div>", unsafe_allow_html=True)
 
