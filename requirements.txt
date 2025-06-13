@@ -5,3 +5,4 @@ huggingface_hub
 translatepy
 python-dotenv
 requests
+streamlit-js-eval

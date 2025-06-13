@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
 from translatepy import Translator
+from streamlit_js_eval import streamlit_js_eval
 import requests
 
 # Load environment and model
@@ -63,24 +64,21 @@ st.title("🆘 " + t("Sahaayak - Your Disaster Assistance Chatbot"))
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [SystemMessage(content=initial_instruction)]
 
-# Improved location detection using ipapi
-def get_location():
-    try:
-        res = requests.get("https://ipapi.co/json")
-        data = res.json()
-        city = data.get('city', '')
-        region = data.get('region', '')
-        country = data.get('country_name', '')
-        lat = data.get('latitude', '')
-        lon = data.get('longitude', '')
-        st.session_state.user_latlon = (lat, lon)  # store for future use
-        return f"{city}, {region}, {country}"
-    except:
-        return t("Location unavailable")
+# Get exact user location using browser (HTML5)
+location = streamlit_js_eval(
+    js_expressions='navigator.geolocation.getCurrentPosition((pos) => { return pos.coords })',
+    key='get_location'
+)
 
-st.info(f"📍 {t('Your detected location')}: {get_location()}")
+if location and 'latitude' in location:
+    lat = location['latitude']
+    lon = location['longitude']
+    st.session_state.user_latlon = (lat, lon)
+    st.success(f"📍 {t('Exact Location')}: Latitude: {lat}, Longitude: {lon}")
+else:
+    st.warning("📍 " + t("Waiting for location permission or browser support..."))
 
-# Hardcoded contacts
+# Hardcoded emergency contacts
 emergency_contacts = {
     "India": {
         "Fire": "101",
@@ -90,7 +88,7 @@ emergency_contacts = {
     }
 }
 
-# Alerts
+# Alerts from ReliefWeb
 def get_disaster_alerts():
     try:
         url = "https://api.reliefweb.int/v1/disasters?appname=chatbot&limit=3&profile=full"
@@ -111,7 +109,7 @@ with st.expander("📢 " + t("Live Disaster Alerts")):
     for alert in get_disaster_alerts():
         st.markdown(f"• {alert}")
 
-# FAQs
+# Quick help FAQ buttons
 st.markdown(f"### 💬 {t('Quick Help')}")
 faq_col1, faq_col2 = st.columns(2)
 faq_clicked = None
@@ -127,7 +125,7 @@ with faq_col2:
     if st.button(t("🌀 Cyclone precautions")):
         faq_clicked = "Precautions for cyclone situations"
 
-# Chat style
+# Chat styling
 st.markdown("""
 <style>
 .chat-bubble {
@@ -154,7 +152,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Show chat
+# Show existing chat history
 for msg in st.session_state.chat_history:
     if isinstance(msg, HumanMessage):
         st.markdown(f"<div class='chat-bubble user-bubble'>{msg.content}</div>", unsafe_allow_html=True)
@@ -162,7 +160,7 @@ for msg in st.session_state.chat_history:
         translated = translator.translate(msg.content, lang_code).result if lang_code != "en" else msg.content
         st.markdown(f"<div class='chat-bubble bot-bubble'>{translated}</div>", unsafe_allow_html=True)
 
-# Input
+# Chat input
 user_input = st.chat_input(t("Type your emergency query..."))
 
 if faq_clicked:
@@ -183,7 +181,7 @@ if user_input:
     st.session_state.chat_history.append(AIMessage(content=translated_response))
     st.markdown(f"<div class='chat-bubble bot-bubble'>{translated_response}</div>", unsafe_allow_html=True)
 
-# Reset
+# Reset button
 if st.button("🔁 " + t("Reset Chat")):
     st.session_state.chat_history = [SystemMessage(content=initial_instruction)]
     st.rerun()
