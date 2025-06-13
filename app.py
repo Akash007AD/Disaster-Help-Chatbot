@@ -18,7 +18,7 @@ llm = HuggingFaceEndpoint(
 model = ChatHuggingFace(llm=llm)
 
 # Streamlit config
-st.set_page_config(page_title="Disaster Assistance Bot", page_icon="🆘")
+st.set_page_config(page_title="Sahaayak", page_icon="🆘")
 
 # Language selection
 st.sidebar.title("🌐 Language")
@@ -35,7 +35,7 @@ lang_code = language_map[lang_name]
 
 # Initial bot instruction
 initial_instruction = """
-You are a Disaster Assistance Chatbot. Your job is to help people during natural disasters like earthquakes, floods, cyclones, and fires.
+You are Sahaayak – a Disaster Assistance Chatbot. Your job is to help people during natural disasters like earthquakes, floods, cyclones, and fires.
 
 You should:
 - Provide safety tips.
@@ -56,7 +56,8 @@ def t(text):
     except:
         return text
 
-st.title("🆘 " + t("Disaster Assistance ChatBot"))
+# Title
+st.title("🆘 " + t("Sahaayak - Your Disaster Assistance Chatbot"))
 
 # Initialize chat
 if "chat_history" not in st.session_state:

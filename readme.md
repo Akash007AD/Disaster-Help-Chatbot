@@ -1,12 +1,12 @@
-# 🆘 Disaster Assistance ChatBot
+# 🆘 Sahaayak – Your Disaster Assistance Chatbot
 
-A multilingual AI chatbot to assist people during natural disasters such as floods, earthquakes, fires, and cyclones. Built with Streamlit and powered by Hugging Face models, the bot provides safety tips, emergency contacts, live alerts, and more — all in multiple Indian languages.
+**Sahaayak** is a multilingual AI chatbot designed to assist people during natural disasters such as floods, earthquakes, fires, and cyclones. Built with Streamlit and powered by Hugging Face models, the bot provides safety tips, emergency contacts, live alerts, and more — all in multiple Indian languages.
 
 ---
 
 ## 🚀 Features
 
-* ✅ Real-time AI chat powered by LLaMA-3.1 (via Hugging Face)
+* ✅ Real-time AI chat powered by **LLaMA-3.1** (via Hugging Face)
 * 🌐 Supports multiple Indian languages: English, Hindi, Bengali, Tamil, Marathi, Telugu
 * 📍 Detects user location (based on IP)
 * 📢 Shows live disaster alerts from ReliefWeb API
@@ -32,9 +32,9 @@ A multilingual AI chatbot to assist people during natural disasters such as floo
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/disaster-assistance-chatbot.git
-cd disaster-assistance-chatbot
-```
+git clone https://github.com/your-username/sahaayak-chatbot.git
+cd sahaayak-chatbot
+````
 
 ### 2. Create and activate virtual environment (optional)
 
@@ -110,4 +110,5 @@ HUGGINGFACEHUB_API_TOKEN = "your_huggingface_api_token"
 
 This project is open-source and available under the [MIT License](LICENSE).
 
----
+```
+
