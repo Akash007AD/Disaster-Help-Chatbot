@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
 from translatepy import Translator
-from streamlit_js_eval import streamlit_js_eval
 import requests
 
 # Load environment and model
@@ -13,7 +12,7 @@ translator = Translator()
 llm = HuggingFaceEndpoint(
     repo_id="meta-llama/Llama-3.1-8B-Instruct",
     task="text-generation",
-    max_new_tokens=80,
+    max_new_tokens=20,
     temperature=0.1
 )
 model = ChatHuggingFace(llm=llm)
@@ -63,20 +62,6 @@ st.title("🆘 " + t("Sahaayak - Your Disaster Assistance Chatbot"))
 # Initialize chat
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [SystemMessage(content=initial_instruction)]
-
-# Get exact user location using browser (HTML5)
-location = streamlit_js_eval(
-    js_expressions='navigator.geolocation.getCurrentPosition((pos) => { return pos.coords })',
-    key='get_location'
-)
-
-if location and 'latitude' in location:
-    lat = location['latitude']
-    lon = location['longitude']
-    st.session_state.user_latlon = (lat, lon)
-    st.success(f"📍 {t('Exact Location')}: Latitude: {lat}, Longitude: {lon}")
-else:
-    st.warning("📍 " + t("Waiting for location permission or browser support..."))
 
 # Hardcoded emergency contacts
 emergency_contacts = {
