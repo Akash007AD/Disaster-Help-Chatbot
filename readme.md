@@ -1,113 +1,116 @@
-# 🆘 Disaster Assistance ChatBot
+````markdown
+# 🆘 Sahaayak – AI Disaster Assistant 🇮🇳
 
-A multilingual AI chatbot to assist people during natural disasters such as floods, earthquakes, fires, and cyclones. Built with Streamlit and powered by Hugging Face models, the bot provides safety tips, emergency contacts, live alerts, and more — all in multiple Indian languages.
+**Sahaayak** is an intelligent, multilingual chatbot designed to help people in **India** during disasters such as floods, earthquakes, fires, and cyclones. Built with **Streamlit**, **LangChain**, **LLaMA 3**, and **Translatepy**, it provides instant, localized guidance and emergency support — all in your preferred Indian language.
 
 ---
 
 ## 🚀 Features
 
-* ✅ Real-time AI chat powered by LLaMA-3.1 (via Hugging Face)
-* 🌐 Supports multiple Indian languages: English, Hindi, Bengali, Tamil, Marathi, Telugu
-* 📍 Detects user location (based on IP)
-* 📢 Shows live disaster alerts from ReliefWeb API
-* 📞 Displays emergency contact numbers (India-specific)
-* 🧠 Quick help buttons for FAQs (e.g., flood, fire, earthquake)
-* 🔁 Reset chat functionality
-* 🌈 Intuitive and responsive UI
+✅ Powered by **LLaMA 3** via Ollama (local)  
+🌐 Supports Indian languages: English, Hindi, Bengali, Tamil, Marathi, Telugu  
+📍 **Emergency contacts** for fire, ambulance, disaster response, police  
+📢 Real-time **disaster alerts** via [ReliefWeb API](https://reliefweb.int/)  
+💬 **Quick Help buttons** for common disasters  
+🧠 **Session memory** using LangChain history  
+🔁 **Reset chat** anytime  
+🎨 Dark-mode themed UI with clean bubble chat
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
-* [Streamlit](https://streamlit.io/)
-* [Langchain](https://www.langchain.com/)
-* [Hugging Face Transformers](https://huggingface.co/)
-* [Translatepy](https://github.com/Animenon/translatepy)
-* [ReliefWeb API](https://api.reliefweb.int/)
+- [Streamlit](https://streamlit.io/) – App framework  
+- [LangChain](https://www.langchain.com/) – LLM orchestration  
+- [ChatOllama (LLaMA 3)](https://ollama.com/) – Local chat model  
+- [Translatepy](https://pypi.org/project/translatepy/) – Multilingual support  
+- [ReliefWeb API](https://reliefweb.int/) – Disaster alerts (India)
 
 ---
 
-## 📦 Installation
+## 🧑‍💻 Setup Instructions
 
-### 1. Clone the repository
+### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/your-username/disaster-assistance-chatbot.git
-cd disaster-assistance-chatbot
-```
+git clone https://github.com/Akash007AD/Disaster-Help-Chatbot.git
+cd Disaster-Help-Chatbot
+````
 
-### 2. Create and activate virtual environment (optional)
+### 2. Create & Activate Virtual Environment
 
 ```bash
 python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
+# For Windows:
+venv\Scripts\activate
+# For macOS/Linux:
+source venv/bin/activate
 ```
 
-### 3. Install dependencies
+### 3. Install Requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Set up `.env` file
+### 4. Configure `.env`
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root folder and add:
 
 ```env
-HUGGINGFACEHUB_API_TOKEN=your_huggingface_api_token
+# Optional if you're using Hugging Face instead of Ollama
+HUGGINGFACEHUB_API_TOKEN=your_token_here
 ```
-
-⚠️ **Do NOT commit this file to GitHub.**
 
 ---
 
-## ▶️ Running the App
+## ▶️ Run the App
 
 ```bash
 streamlit run app.py
 ```
 
-Then open the local URL (e.g., `http://localhost:8501`) in your browser.
+Then open your browser at [http://localhost:8501](http://localhost:8501).
 
 ---
 
-## 🌐 Deploy on Streamlit Cloud
-
-1. Push your project to a GitHub repository.
-2. Go to [Streamlit Cloud](https://streamlit.io/cloud) and create a new app.
-3. Set up **Secrets** in the app settings with:
-
-```toml
-HUGGINGFACEHUB_API_TOKEN = "your_huggingface_api_token"
-```
-
----
-
-## 📁 File Structure
+## 🗂 File Structure
 
 ```bash
 .
-├── app.py               # Main Streamlit app
-├── .env                 # API keys (excluded from GitHub)
-├── requirements.txt     # Python dependencies
-├── README.md            # Project documentation
-└── .gitignore           # Ignore .env and virtual env
+├── app.py               # Main Streamlit chatbot code
+├── .env                 # API keys (gitignored)
+├── requirements.txt     # Dependencies
+├── README.md            # Documentation
+└── .gitignore           # Ignore venv and secrets
 ```
 
 ---
 
-## 🙏 Acknowledgements
+## 📱 Emergency Numbers (India)
 
-* Hugging Face LLaMA models
-* Translatepy for multilingual support
-* ReliefWeb for real-time disaster feeds
-* Streamlit for the amazing frontend framework
+| Service            | Number |
+| ------------------ | ------ |
+| National Emergency | 112    |
+| Fire Department    | 101    |
+| Ambulance          | 102    |
+| Disaster Response  | 108    |
+| Police             | 100    |
+
+---
+
+## 🙌 Acknowledgments
+
+* [NDMA](https://ndma.gov.in/) and [NDRF](https://ndrf.gov.in/) for national guidelines
+* [ReliefWeb](https://reliefweb.int/) for real-time disaster updates
+* [Translatepy](https://github.com/Animenon/translatepy) for smooth language translation
+* [Streamlit](https://streamlit.io/) for intuitive UI design
+* [LangChain](https://www.langchain.com/) for chat memory and logic
 
 ---
 
 ## 📜 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
 ---
