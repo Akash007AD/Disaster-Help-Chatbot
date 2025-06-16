@@ -1,4 +1,3 @@
-````markdown
 # 🆘 Sahaayak – AI Disaster Assistant 🇮🇳
 
 **Sahaayak** is an intelligent, multilingual chatbot designed to help people in **India** during disasters such as floods, earthquakes, fires, and cyclones. Built with **Streamlit**, **LangChain**, **LLaMA 3**, and **Translatepy**, it provides instant, localized guidance and emergency support — all in your preferred Indian language.
